@@ -1,0 +1,10 @@
+font=IBM Plex Serif
+background-color=#dcdcdc
+text-color=#000000
+width=400
+height=150
+padding=10
+border-size=1
+border-color=#dcdcdc
+border-radius=10
+actions=1
