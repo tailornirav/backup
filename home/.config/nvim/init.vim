@@ -1,16 +1,24 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gruvbox_contrast_dark = 'hard'
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_enabled = 1
 let g:ale_completion_autoimport = 1
 let g:ale_sign_column_always = 1
 let g:ale_fix_on_save = 1
-let g:ale_sign_error = '✗'
+let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
+let g:ale_sign_info = ''
+let g:ale_sign_style_error = 'm'
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'typescript': ['prettier'],
+\   'javascript': ['prettier'],
 \}
 inoremap <silent><expr> <Tab>
   \ pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -63,24 +71,18 @@ let g:fzf_layout = { 'down': '~10%' }
 
 let g:rainbow_active = 1
 
-autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
-
 call plug#begin('~/.local/share/nvim/plugged')
 " General plugins
   Plug 'morhetz/gruvbox'
   Plug 'yggdroot/indentline'
   Plug 'luochen1990/rainbow'
   Plug 'jiangmiao/auto-pairs'
-  Plug 'easymotion/vim-easymotion'
   Plug 'dense-analysis/ale'
+  Plug 'github/copilot.vim'
   Plug 'itchyny/lightline.vim'
   Plug 'maximbaz/lightline-ale'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-
-" PHP
-" Plug 'stephpy/vim-php-cs-fixer'
-" Plug 'StanAngeloff/php.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,11 +122,11 @@ set mat=1
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-set background=dark
+set background=light
 colorscheme gruvbox
 set encoding=utf8
 set ffs=unix,dos,mac
-hi Normal guibg=NONE ctermbg=NONE
+let g:gruvbox_contrast_light = 'hard'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -163,16 +165,9 @@ nmap <leader><F11>      <Plug>(ale_previous_wrap)
 nmap <leader><F23>      <Plug>(ale_next_wrap)
 nmap <leader><F12>      :ALEGoToDefinition<CR>
 nmap <leader><F24>      :ALEFindReferences<CR>
-nmap s                  <Plug>(easymotion-overwin-f2)
-
-omap /                  <Plug>(easymotion-tn)
 
 map <leader>s     :Ag<space>
 map <leader><ESC> :noh<CR>
-map <Leader>      <Plug>(easymotion-prefix)
-map  /            <Plug>(easymotion-sn)
-map  n            <Plug>(easymotion-next)
-map  N            <Plug>(easymotion-prev)
 
 map <C-j> <C-W>j
 map <C-k> <C-W>k
