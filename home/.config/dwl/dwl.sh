@@ -1,4 +1,4 @@
-gammastep &
+#gammastep &
 swayidle -w \
   timeout 300 'systemctl suspend' \
   before-sleep 'playerctl pause' \

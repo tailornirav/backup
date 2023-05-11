@@ -14,11 +14,21 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
+\   'bash': ['shellcheck'],
+\   'sh': ['shellcheck'],
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'typescript': ['prettier'],
 \   'javascript': ['prettier'],
+\   'json': ['prettier'],
+\   'yaml': ['prettier'],
+\   'css': ['prettier'],
+\   'scss': ['prettier'],
+\   'html': ['prettier'],
+\   'markdown': ['prettier'],
+\   'sh': ['shfmt'],
+\   'bash': ['shfmt'],
 \}
 inoremap <silent><expr> <Tab>
   \ pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -73,10 +83,8 @@ let g:rainbow_active = 1
 
 call plug#begin('~/.local/share/nvim/plugged')
 " General plugins
-  Plug 'morhetz/gruvbox'
+  Plug 'NLKNguyen/papercolor-theme'
   Plug 'yggdroot/indentline'
-  Plug 'luochen1990/rainbow'
-  Plug 'jiangmiao/auto-pairs'
   Plug 'dense-analysis/ale'
   Plug 'github/copilot.vim'
   Plug 'itchyny/lightline.vim'
@@ -123,10 +131,9 @@ set mat=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 set background=light
-colorscheme gruvbox
+colorscheme PaperColor
+set termguicolors
 set encoding=utf8
-set ffs=unix,dos,mac
-let g:gruvbox_contrast_light = 'hard'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
