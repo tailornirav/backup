@@ -1,88 +1,47 @@
-## Variables
-set $left                       h
-set $down                       j
-set $up                         k
-set $right                      l
-set $mod                        Mod1
-set $term                       alacritty
-set $path                       ~/.config/sway
-set $lock                       swaylock -eu -i $path/lock -s fill
-set $browser                    firefox
+# Inclued
+include /etc/sway/config.d/*
 
 ## Sway
 focus_follows_mouse             no
 workspace_auto_back_and_forth   yes
 default_border                  none
-input                           * xkb_layout "us"
-input                           * xkb_variant "dvp"
-output                          * bg $path/wall fill
+xwayland                        disabled
+output                          * bg ~/.config/sway/wall fill
+output                          * mode 1920x1080@144Hz
 input                           * xkb_options "caps:escape"
 
 ## Executables
-exec                            $lock
+exec                            swaylock -eu -i ~/.config/sway/lock -s fill
 exec                            mako -c ~/.config/mako/config
-exec                            swayidle -w timeout 300 '$lock'
 
 ## Bindsyms
-bindsym   $mod+Return           exec $term
-bindsym   $mod+Space            exec $browser
-bindsym   $mod+Backspace        exec $lock
+bindsym   Mod1+Return           exec foot
+bindsym   Mod1+Space            exec firefox
+bindsym   Mod1+Backspace        exec swaylock -eu -i ~/.config/sway/lock -s fill
 
-bindsym   $mod+m                exec $term --class neomutt_mail_client -e $mail
-
-bindsym   XF86AudioRaiseVolume  exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym   XF86AudioLowerVolume  exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-bindsym   XF86AudioMute         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym   XF86AudioRaiseVolume  exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+
+bindsym   XF86AudioLowerVolume  exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
+bindsym   XF86AudioMute         exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 bindsym   Print                 exec grim
-bindsym   $mod+Print            exec grim -g "$(slurp)"
+bindsym   Mod1+Print            exec grim -g "$(slurp)"
 
-bindsym   $mod+Delete 		      exec doas reboot
-bindsym   $mod+End		          exec doas poweroff
-bindsym   $mod+Escape           exec $term --class btm -e btm
-
-bindsym   $mod+q                kill
-bindsym   $mod+c                reload
 bindsym   Alt+Tab               workspace back_and_forth
-bindsym	  Mod4+Return 		      move scratchpad
-bindsym	  $mod+s 		            scratchpad show
+bindsym	  Mod1+n                move scratchpad
+bindsym	  Mod1+s 		            scratchpad show
 
-bindsym   $mod+$left            focus left
-bindsym   $mod+Shift+$left      move left
-bindsym   $mod+$down            focus down
-bindsym   $mod+Shift+$down      move down
-bindsym   $mod+$up              focus up
-bindsym   $mod+Shift+$up        move up
-bindsym   $mod+$right           focus right
-bindsym   $mod+Shift+$right     move right
+bindsym   Mod1+h                focus left
+bindsym   Mod1+l                focus right
 
-bindsym   F1                    workspace number 1
-bindsym   $mod+F1               move container to workspace number 1
-bindsym   F2                    workspace number 2
-bindsym   $mod+F2               move container to workspace number 2
-bindsym   F3                    workspace number 3
-bindsym   $mod+F3               move container to workspace number 3
-bindsym   F4                    workspace number 4
-bindsym   $mod+F4               move container to workspace number 4
-bindsym   F5                    workspace number 5
-bindsym   $mod+F5               move container to workspace number 5
-bindsym   F6                    workspace number 6
-bindsym   $mod+F6               move container to workspace number 6
-bindsym   F7                    workspace number 7
-bindsym   $mod+F7               move container to workspace number 7
-bindsym   F8                    workspace number 8
-bindsym   $mod+F8               move container to workspace number 8
-bindsym   F9                    workspace number 9
-bindsym   $mod+F9               move container to workspace number 9
-bindsym   F10                   workspace number 10
-bindsym   $mod+F10              move container to workspace number 10
-bindsym   F11                   workspace number 11
-bindsym   $mod+F11              move container to workspace number 11
-bindsym   F12                   workspace number 12
-bindsym   $mod+F12              move container to workspace number 12
+bindsym   Mod1+f                workspace number 1
+bindsym   Mod1+b                move container to workspace number 1
+bindsym   Mod1+g                workspace number 2
+bindsym   Mod1+m                move container to workspace number 2
+bindsym   Mod1+c                workspace number 3
+bindsym   Mod1+w                move container to workspace number 3
+bindsym   Mod1+r                workspace number 4
+bindsym   Mod1+v                move container to workspace number 4
 
 ## Assigns
 assign                          [app_id="firefox"] 1
-assign                          [app_id="neomutt_mail_client"] 1
-
 for_window                      [app_id="firefox"] inhibit_idle fullscreen
